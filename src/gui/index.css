@@ -1,0 +1,108 @@
+body{
+    background-color: rgb(34, 31, 31);
+}
+
+h1, h2, p, label{
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#center{
+    margin-top: 150px;
+    text-align: center;
+}
+
+#file-input {
+    display: none;
+}
+
+#file-input-label {
+    font-size: 1.3em;
+    padding: 10px 15px;
+    border: 1px solid white;
+    border-radius: 4%;
+    cursor: pointer;
+}
+
+.but{
+    font-size: 1.3em;
+    background-color: rgb(34, 31, 31);
+    color: white;
+    text-decoration: none;
+    border: 1px solid white;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+#file-input-all{
+    margin-top: 11px;
+}
+
+.presentation{
+    border-radius: 10px;
+    border: 2px solid white;
+    width: fit-content;
+    padding: 0px 10px;
+    display: block;
+    height: 320px;
+}
+
+.content{
+    margin-left: 20px;
+}
+
+@keyframes progress {
+    0% { --percentage: 0; }
+    100% { --percentage: var(--value); }
+}
+
+@property --percentage {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+}
+
+#progressbar {
+    --percentage: var(--value);
+    --primary: rgb(51, 102, 153);
+    --secondary: rgb(170, 221, 255);
+    --size: 300px;
+    animation: progress 2s 0.5s forwards;
+    width: var(--size);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    float: left;
+    margin-top: 10px;
+}
+
+#progressbar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(var(--primary) calc(var(--percentage) * 1%), var(--secondary) 0);
+    mask: radial-gradient(white 55%, transparent 0);
+    mask-mode: alpha;
+    -webkit-mask: radial-gradient(#0000 55%, #000 0);
+    -webkit-mask-mode: alpha;
+}
+
+#progressbar::after {
+    counter-reset: percentage var(--value);
+    content: counter(percentage) '%';
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: calc(var(--size) / 5);
+    color: var(--primary);
+}
+  
+.time{
+    color: rgb(170, 221, 255);
+    font-size: larger;
+    font-weight: bold;
+}
