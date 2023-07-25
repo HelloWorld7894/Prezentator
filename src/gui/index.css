@@ -41,68 +41,34 @@ h1, h2, p, label{
 .presentation{
     border-radius: 10px;
     border: 2px solid white;
-    width: fit-content;
+    width: 40%;
     padding: 0px 10px;
     display: block;
     height: 320px;
+    margin-top: 25px;
 }
 
 .content{
     margin-left: 20px;
 }
 
-@keyframes progress {
-    0% { --percentage: 0; }
-    100% { --percentage: var(--value); }
-}
-
-@property --percentage {
-    syntax: '<number>';
-    inherits: true;
-    initial-value: 0;
-}
-
-#progressbar {
-    --percentage: var(--value);
-    --primary: rgb(51, 102, 153);
-    --secondary: rgb(170, 221, 255);
-    --size: 300px;
-    animation: progress 2s 0.5s forwards;
-    width: var(--size);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    position: relative;
-    overflow: hidden;
-    display: grid;
-    place-items: center;
-    float: left;
-    margin-top: 10px;
-}
-
-#progressbar::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: conic-gradient(var(--primary) calc(var(--percentage) * 1%), var(--secondary) 0);
-    mask: radial-gradient(white 55%, transparent 0);
-    mask-mode: alpha;
-    -webkit-mask: radial-gradient(#0000 55%, #000 0);
-    -webkit-mask-mode: alpha;
-}
-
-#progressbar::after {
-    counter-reset: percentage var(--value);
-    content: counter(percentage) '%';
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: calc(var(--size) / 5);
-    color: var(--primary);
+.myProgress {
+    width: 200px;
+    background-color: rgb(34, 31, 31);
+    border: 1px solid white;
 }
   
-.time{
-    color: rgb(170, 221, 255);
-    font-size: larger;
-    font-weight: bold;
+.myBar {
+    width: 1%;
+    height: 30px;
+    background-color: green;
+}
+
+#main-time{
+    text-align: center;
+
+}
+
+#r1{
+    display: block;
 }
