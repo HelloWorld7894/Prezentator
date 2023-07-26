@@ -88,30 +88,46 @@ function update_time(){
 
     var timers = document.getElementsByClassName("timer")
     var times = document.getElementsByClassName("time")
+    var progress = document.getElementsByClassName("myBar")
+    var bars = document.getElementsByClassName("myProgress")
 
-    //update all progressbars
     for (let i = 0; i < n_presentations; i++){
         let time_end = times[i].innerHTML.slice(times[i].innerHTML.indexOf("-") + 1, times[i].innerHTML.length)
-        
+        let time_start = times[i].innerHTML.slice(0, 6)
+
+        let start_hours = parseInt(time_start.slice(0, 3))
+        let start_minutes = parseInt(time_start.slice(5, 7))
+
         let end_hours = parseInt(time_end.slice(0, 3))
         let end_minutes = parseInt(time_end.slice(5, 7))
 
         let curr_hours = parseInt(hours)
         let curr_minutes = parseInt(minutes)
 
-        let m_diff = curr_hours * 60 + curr_minutes - end_hours * 60 + end_minutes
+        let m_diff = (curr_hours * 60 + curr_minutes) - (end_hours * 60 + end_minutes)
+        let pres_length = (start_hours * 60 + start_minutes) - (end_hours * 60 + end_minutes)
 
         let sub_time
 
         //now convert back to time string
         if (m_diff / 60 < 1){
-            sub_time = `00:${m_diff}`
+            sub_time = `00:${Math.abs(m_diff)}`
         }
         else{
-            sub_time = `${Math.floor(m_diff / 60)}:${m_diff % 60}`
+            sub_time = `${Math.abs(Math.floor(m_diff / 60))}:${Math.abs(m_diff % 60)}`
         }
         
+        //update time_diff
         timers[i].innerHTML = `Zbývá: ${sub_time}`
+
+        //update all progressbars
+        let infill = (m_diff / pres_length).toFixed(2)
+        let update_width = Math.round(bars[i].offsetWidth * infill)
+        if (update_width > 100){
+            console.log("something is broken")
+            return
+        }
+        progress[i].style.width = update_width + "%"
     }
 }
 
