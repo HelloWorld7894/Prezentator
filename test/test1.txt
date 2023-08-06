@@ -1,4 +1,4 @@
-Jak přežít, Albert, 08:00 - 09:00,
-how to be sus, John amogu, 08:30 - 09:00,
-Jak se hraje na kazoo, Tomáš blbý, 19:30 - 20:00,
-Co je život?, Rudolf rudolf, 21:30 - 00:30
+A: [Jak přežít, Albert, 08:00 - 09:00, Jak přežít, sex, 08:00 - 09:00]
+B: [how to be sus, John amogu, 08:30 - 09:00, how to be sus, John amogu, 08:30 - 09:00]
+C: [Jak se hraje na kazoo, Tomáš blbý, 19:30 - 20:00, Jak mít sex, Tomáš neblbý, 20:00 - 20:30]
+D: [Co je život?, Rudolf rudolf, 21:30 - 00:30, Co je život?, Rudolf rudolf, 21:30 - 00:30]

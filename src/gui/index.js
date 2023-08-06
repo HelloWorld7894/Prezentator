@@ -3,6 +3,11 @@ const ipcRender = require("electron").ipcRenderer
 var presentation_data
 var n_presentations
 
+var pres_room_A = []
+var pres_room_B = []
+var pres_room_C = []
+var pres_room_D = []
+
 //functions
 function handleFile(param){
     let file_input = document.getElementById("file-input")
@@ -92,6 +97,10 @@ function update_time(){
     var bars = document.getElementsByClassName("myProgress")
 
     for (let i = 0; i < n_presentations; i++){
+
+        //check if presentation did not end
+
+
         let time_end = times[i].innerHTML.slice(times[i].innerHTML.indexOf("-") + 1, times[i].innerHTML.length)
         let time_start = times[i].innerHTML.slice(0, 6)
 
