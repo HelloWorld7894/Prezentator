@@ -2,13 +2,29 @@
   "name": "prezentator",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "./src/main.js",
   "scripts": {
-    "start": "electron ./src/main.js"
+    "start": "electron ./src/main.js",
+    "build": "electron-builder build -wl",
+    "clear": "rm -rf ./build/* && touch ./build/.gitkeep"
   },
-  "author": "",
+  "author": "Daniel Pojhan <danpojhan@gmail.com>",
+  "homepage": "https://github.com/HelloWorld7894/Prezentator",
   "license": "GPL-3.0",
   "devDependencies": {
     "electron": "^25.3.1"
+  },
+  "build": {
+    "appId": "com.prezentator.app",
+    "directories":{
+      "output": "./build/",
+      "buildResources": "resources"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux":{
+      "target": "deb"
+    }
   }
 }

@@ -167,8 +167,8 @@ function update_time(){
 
         console.log(sub_time)
 
-        //check if presentation ended
-        if (sub_time == "00:00" || min_diff < 0 || (hour_diff * 60 + min_diff > PRESENTATION_MAX_LENGTH)){
+        //check if presentation ended (I had to add so many conditions because sometimes, this apps behaves in a broken way)
+        if (sub_time == "00:00" || min_diff < 0 || hour_diff < 0 || (hour_diff * 60 + min_diff > PRESENTATION_MAX_LENGTH)){
             room_iterators[i] += 1 //increment
         }
         else{

@@ -1,4 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
+const url = require("url")
+const path = require("path")
 
 var win1, win2
 var content_data
@@ -35,10 +37,15 @@ class ElectronWindow{
     set_window(){
         this.window = new BrowserWindow(this.settings)
         this.window.setMenu(null)
-        this.window.webContents.openDevTools()
-        this.window.loadFile(this.path)
+        this.window.loadURL(url.format({
+            pathname: path.join(__dirname, this.path),
+            protocol: "file:",
+            slashes: true
+        }))
     }
 }
+
+console.log(__dirname)
 
 app.on("ready", () => {
     win1 = new ElectronWindow("./gui/menu.html", settings_menu)
