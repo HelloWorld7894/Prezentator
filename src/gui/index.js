@@ -2,6 +2,7 @@ const ipcRender = require("electron").ipcRenderer
 
 var presentation_data
 var n_presentation_rooms = 4 //TODO: make this configurable
+var PRESENTATION_MAX_LENGTH = 90//in minutes
 
 var room_iterators = [0, 0, 0, 0]
 
@@ -81,18 +82,25 @@ function refresh_presentations(){
     console.log(room_iterators)
     
     for(let i = 0; i < n_presentation_rooms; i++){
+
         //read presentations
         var pres_names = document.getElementsByClassName("name")
         var pres_authors = document.getElementsByClassName("author")
         var pres_times = document.getElementsByClassName("time")
+        var pres_divs = document.getElementsByClassName("presentation")
 
-        if (room_iterators[n_presentation_rooms] == presentation_data[i][0].length){ //there is no more presentations in spec_room
-            pres_names[i].style.display = "none"
+        //check if presentations ended
+        if (room_iterators[i] == presentation_data[i][0].length){ //there is no more presentations in spec_room
+            room_iterators[i] = 0 //reset
+            
+            pres_divs[i].innerHTML = ""
+            
         }
-
-        pres_names[i].innerHTML = presentation_data[i][0][room_iterators[i]].title
-        pres_authors[i].innerHTML = presentation_data[i][0][room_iterators[i]].name
-        pres_times[i].innerHTML = presentation_data[i][0][room_iterators[i]].time
+        else if (pres_names[i] != undefined){
+            pres_names[i].innerHTML = presentation_data[i][0][room_iterators[i]].title
+            pres_authors[i].innerHTML = presentation_data[i][0][room_iterators[i]].name
+            pres_times[i].innerHTML = presentation_data[i][0][room_iterators[i]].time
+        }
     }
 
 }
@@ -121,9 +129,12 @@ function update_time(){
     var timers = document.getElementsByClassName("timer")
     var times = document.getElementsByClassName("time")
     var progress = document.getElementsByClassName("myBar")
-    var bars = document.getElementsByClassName("myProgress")
 
     for (let i = 0; i < n_presentation_rooms; i++){
+
+        if(times[i] == undefined){
+            continue
+        }
 
         let string_end = times[i].innerHTML.slice(times[i].innerHTML.indexOf("-") + 1, times[i].innerHTML.length)
         let string_start = times[i].innerHTML.slice(0, 6)
@@ -139,7 +150,7 @@ function update_time(){
         let minutes_length = Math.round(pres_len / 60000)
         
         let min_diff = Math.round(minutes_diff % 60)
-        let hour_diff = Math.round(minutes_diff / 60)
+        let hour_diff = Math.floor(minutes_diff / 60)
 
         let min_diff_str = `${min_diff}`
         if (min_diff_str.length == 1){
@@ -154,47 +165,24 @@ function update_time(){
             sub_time = `${hour_diff}:${min_diff_str}`
         }
 
-        if (min_diff < 10){
-        }
+        console.log(sub_time)
 
-        //check if presentation did not end
-        if (sub_time == "00:00"){
+        //check if presentation ended
+        if (sub_time == "00:00" || min_diff < 0 || (hour_diff * 60 + min_diff > PRESENTATION_MAX_LENGTH)){
             room_iterators[i] += 1 //increment
         }
-        
-        //update time_diff
-        timers[i].innerHTML = `Zbývá: ${sub_time}`
+        else{
+            //update time_diff
+            timers[i].innerHTML = `Zbývá: ${sub_time}`
 
 
-        //update all progressbars
-        let infill = (1 - (minutes_diff / minutes_length)).toFixed(2)
-        if (infill > 1.00){
-            console.log("something is broken")
-            return 
+            //update all progressbars
+            let infill = (1 - (minutes_diff / minutes_length)).toFixed(2)
+            progress[i].style.width = (infill * 100) + "%"
         }
-        progress[i].style.width = (infill * 100) + "%"
     }
-}
-
-var i = 0;
-function move() {
-  if (i == 0) {
-    i = 1;
-    var elem = document.getElementById("myBar");
-    var width = 1;
-    var id = setInterval(frame, 10);
-    function frame() {
-      if (width >= 100) {
-        clearInterval(id);
-        i = 0;
-      } else {
-        width++;
-        elem.style.width = width + "%";
-      }
-    }
-  }
 }
 
 //main code
-setInterval(update_time, 1000)
 setInterval(refresh_presentations, 1000)
+setInterval(update_time, 1000)
