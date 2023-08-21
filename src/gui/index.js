@@ -2,6 +2,7 @@ const ipcRender = require("electron").ipcRenderer
 
 var presentation_data
 var n_presentation_rooms = 4 //TODO: make this configurable
+var presentation_rooms = []
 var PRESENTATION_MAX_LENGTH = 90//in minutes
 
 var room_iterators = [0, 0, 0, 0]
@@ -61,6 +62,21 @@ function loadData(){
             return [];
           });          
         presentation_data = arrays
+
+        let preprocess = data.split("\n")
+        for(let i = 0; i < preprocess.length; i++){
+            presentation_rooms.push(preprocess[i])
+        }
+
+        //update room labels
+        let rooms = document.getElementsByClassName("room")
+        for(let i = 0; i < presentation_rooms.length; i++){
+
+            let idx = presentation_rooms[i].indexOf(":")
+            let str = presentation_rooms[i].substring(0, idx)
+
+            rooms[i].innerHTML = str
+        }
     })
 }
 
