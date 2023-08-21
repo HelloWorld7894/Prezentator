@@ -12,18 +12,19 @@
   "homepage": "https://github.com/HelloWorld7894/Prezentator",
   "license": "GPL-3.0",
   "devDependencies": {
-    "electron": "^25.3.1"
+    "electron": "^25.3.1",
+    "exceljs": "^4.3.0"
   },
   "build": {
     "appId": "com.prezentator.app",
-    "directories":{
+    "directories": {
       "output": "./build/",
       "buildResources": "resources"
     },
     "win": {
       "target": "nsis"
     },
-    "linux":{
+    "linux": {
       "target": "deb"
     }
   }
