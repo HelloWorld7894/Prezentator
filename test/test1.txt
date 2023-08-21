@@ -1,4 +1,4 @@
-přednášková A (AULA): [example title 1A, name1, 16:00 - 27:30, example title 2A, name2, 18:30 - 19:00]
-přednášková B (220): [example title 1B, name3, 18:00 - 19:00, example title 2B, John amogu, 19:10 - 20:00]
-přednášková C (219): [example title 1C, name4, 18:00 - 18:15, example title 2C, name5, 18:30 - 20:30]
-přednášková D (218): [example title 1D, name6, 18:00 - 18:45, example title 2D, name7, 18:45 - 22:00]
+A: [example title 1A, name1, 16:00 - 27:30, example title 2A, name2, 18:30 - 19:00]
+B: [example title 1B, name3, 18:00 - 19:00, example title 2B, John amogu, 19:10 - 20:00]
+C: [example title 1C, name4, 18:00 - 18:15, example title 2C, name5, 18:30 - 20:30]
+D: [example title 1D, name6, 18:00 - 18:45, example title 2D, name7, 18:45 - 22:00]
