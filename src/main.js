@@ -55,9 +55,20 @@ app.on("ready", () => {
 })
 
 ipcMain.on("data", (event, data) => {
-    content_data = data
-    win1.window.close()
+    switch(data[1]){
+        case "txt":
+            content_data = data[0]
+            break
+        case "xlsx":
+            //format xlsx to txt accepted file (comes as a json file)
+            console.log(data[0])
+            break
+        case "csv":
+            //format csv to txt accepted file
+            break
+    }
 
+    win1.window.close()
     win2 = new ElectronWindow("./gui/index.html", settings_main)
 })
 

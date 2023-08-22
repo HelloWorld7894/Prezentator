@@ -1,4 +1,5 @@
 const ipcRender = require("electron").ipcRenderer
+const XLSX = require("xlsx")
 
 var presentation_data
 var n_presentation_rooms = 4 //TODO: make this configurable
@@ -24,19 +25,39 @@ function handleFile(param){
         return
     }
 
+    let extension = file.name.split('.').pop();
+
     //read contents of file
     let reader = new FileReader()
-
-    reader.onload = function(e){
-        let content = e.target.result
-        console.log(content)
-        ipcRender.send("data", content)
-    }
     reader.onerror = function(e){
         alert("něco se pokazilo")
     }
 
-    reader.readAsText(file)
+    if (extension == "txt" || extension == "csv"){
+
+        reader.onload = function(e){
+            let content = e.target.result
+            console.log(content)
+            ipcRender.send("data", [content, extension])
+        }
+
+        reader.readAsText(file)
+    }
+    else if (extension == "xlsx"){
+        reader.onload = function (e) {
+            let data = e.target.result;
+            let workbook = XLSX.read(data, { type: "binary" });
+            let sheetName = workbook.SheetNames[0];
+            let worksheet = workbook.Sheets[sheetName];
+            let jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+    
+            // Now you can work with jsonData, which contains the Excel data as an array of objects.
+            console.log(jsonData);
+            ipcRender.send("data", [jsonData, extension])
+        };
+
+        reader.readAsBinaryString(file)
+    }
 }
 
 function loadData(){

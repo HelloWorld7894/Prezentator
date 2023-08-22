@@ -13,7 +13,8 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "electron": "^25.3.1",
-    "exceljs": "^4.3.0"
+    "exceljs": "^4.3.0",
+    "xlsx": "^0.18.5"
   },
   "build": {
     "appId": "com.prezentator.app",
