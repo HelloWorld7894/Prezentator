@@ -39,7 +39,6 @@ class ElectronWindow{
     set_window(){
         this.window = new BrowserWindow(this.settings)
         this.window.setMenu(null)
-        this.window.webContents.openDevTools()
         this.window.loadURL(url.format({
             pathname: path.join(__dirname, this.path),
             protocol: "file:",
