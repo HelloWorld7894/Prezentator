@@ -64,6 +64,8 @@ function loadData(){
     ipcRender.send("data-request", "")
 
     ipcRender.on("data-send", (event, data) => {
+        console.log(data)
+
         const arrays = data.split('\n').map(line => {
             const matches = line.match(/\[(.*?)\]/g);
             if (matches) {

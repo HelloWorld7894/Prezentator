@@ -61,7 +61,29 @@ ipcMain.on("data", (event, data) => {
             break
         case "xlsx":
             //format xlsx to txt accepted file (comes as a json file)
-            console.log(data[0])
+            let json = data[0]
+
+            let gen_str = ""
+            for(let i = 0; i < json[0].length; i++){
+                //line iterator
+                gen_str += `${json[0][i]}: [`
+                for(let i2 = 0; i2 < json.length - 1; i2++){
+                    if(json[i2 + 1].length == 0){
+                        continue
+                    }
+                    if(i2 == json.length - 2){
+                        gen_str += `${json[i2 + 1][i]}`
+                    }
+                    else{
+                        gen_str += `${json[i2 + 1][i]}, `
+                    }
+                }
+
+                gen_str += `]\n`
+            }
+
+            content_data = gen_str
+
             break
         case "csv":
             //format csv to txt accepted file
